@@ -1,0 +1,46 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Logs
+*.log
+
+# Directory for test coverage reports
+cover/
+
+# Dependency directories (remove the comment if you have dependencies outside of your project)
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.swp
+*~
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Docker files
+docker-compose.override.yml
+
+# Specific to npm modules and dependencies
+node_modules/
+
+# Go modules
+go.sum
+go.mod

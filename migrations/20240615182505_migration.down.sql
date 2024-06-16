@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS swipes;
+DROP TABLE IF EXISTS matches;
