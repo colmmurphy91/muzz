@@ -1,12 +1,10 @@
-package tools
+package pkg
 
 import (
 	"fmt"
-
+	"github.com/colmmurphy91/muzz/internal/pkg/envvar"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-
-	"github.com/colmmurphy91/muzz/tools/envvar"
 )
 
 // NewLocalMySQL creates a new MySQL database connection

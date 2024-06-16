@@ -4,6 +4,8 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"github.com/colmmurphy91/muzz/internal/pkg"
+	"github.com/colmmurphy91/muzz/internal/pkg/envvar"
 	"log"
 	"net/http"
 	"os"
@@ -28,8 +30,6 @@ import (
 	discoverService "github.com/colmmurphy91/muzz/internal/usecase/discover"
 	swipeService "github.com/colmmurphy91/muzz/internal/usecase/swipe"
 	userM "github.com/colmmurphy91/muzz/internal/usecase/user"
-	tools "github.com/colmmurphy91/muzz/tools"
-	"github.com/colmmurphy91/muzz/tools/envvar"
 )
 
 type serverConfig struct {
@@ -73,7 +73,7 @@ func LoggingMiddleware(log *zap.SugaredLogger) func(h http.Handler) http.Handler
 }
 
 func run(env, _ string) (<-chan error, error) {
-	logger, err := tools.New("event-thor-service")
+	logger, err := pkg.New("event-thor-service")
 	if err != nil {
 		return nil, fmt.Errorf("zap.NewProduction %w", err)
 	}
@@ -90,12 +90,12 @@ func run(env, _ string) (<-chan error, error) {
 
 	var db *sqlx.DB
 
-	db, err = tools.NewDBConnection(conf)
+	db, err = pkg.NewDBConnection(conf)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create db connection: %w", err)
 	}
 
-	es, err := tools.NewElasticSearch(conf)
+	es, err := pkg.NewElasticSearch(conf)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create es connection: %w", err)
 	}
@@ -175,19 +175,19 @@ func newServer(conf serverConfig) *http.Server {
 	userManager := userM.NewManager(store, index)
 	authService := auth.NewAuthService("my-secret-key", store)
 
-	tools.InitAuth("my-secret-key")
+	pkg.InitAuth("my-secret-key")
 
 	authhttp.NewHandler(conf.Logger, authService).Register(r)
 
 	user.NewHandler(conf.Logger, userManager).Register(r)
 
 	r.Group(func(r chi.Router) {
-		r.Use(tools.AuthMiddleware)
+		r.Use(pkg.AuthMiddleware)
 		discover.NewHandler(conf.Logger, discoverS).Register(r)
 	})
 
 	r.Group(func(r chi.Router) {
-		r.Use(tools.AuthMiddleware)
+		r.Use(pkg.AuthMiddleware)
 		swipeHttp.NewHandler(conf.Logger, swipeS).Register(r)
 	})
 

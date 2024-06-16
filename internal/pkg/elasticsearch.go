@@ -1,14 +1,13 @@
-package tools
+package pkg
 
 import (
 	"context"
 	"fmt"
+	"github.com/colmmurphy91/muzz/internal/pkg/envvar"
 	"strings"
 
 	esv7 "github.com/elastic/go-elasticsearch/v7"
 	esv7api "github.com/elastic/go-elasticsearch/v7/esapi"
-
-	"github.com/colmmurphy91/muzz/tools/envvar"
 )
 
 // NewElasticSearch instantiates the ElasticSearch client using configuration defined in environment variables.
