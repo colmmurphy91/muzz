@@ -2,6 +2,7 @@ package swipe
 
 import (
 	"encoding/json"
+	"github.com/colmmurphy91/muzz/internal/pkg"
 	"net/http"
 
 	chi "github.com/go-chi/chi/v5"
@@ -10,7 +11,6 @@ import (
 	"github.com/colmmurphy91/muzz/internal/api/response"
 	"github.com/colmmurphy91/muzz/internal/entity"
 	swipeService "github.com/colmmurphy91/muzz/internal/usecase/swipe"
-	"github.com/colmmurphy91/muzz/tools"
 )
 
 type Handler struct {
@@ -39,7 +39,7 @@ func (h *Handler) swipe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID, ok := r.Context().Value(tools.CTXUserKey).(int)
+	userID, ok := r.Context().Value(pkg.CTXUserKey).(int)
 	if !ok {
 		response.RenderErrorResponse(w, "forbidden", entity.ErrForbidden)
 		return

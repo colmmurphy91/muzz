@@ -1,10 +1,9 @@
 package discover
 
 import (
+	"github.com/colmmurphy91/muzz/internal/pkg"
 	"net/http"
 	"strconv"
-
-	"github.com/colmmurphy91/muzz/tools"
 
 	chi "github.com/go-chi/chi/v5"
 	null "github.com/guregu/null/v5"
@@ -30,7 +29,7 @@ func (h *Handler) Register(r chi.Router) {
 
 // nolint:cyclop,forcetypeassert
 func (h *Handler) discover(w http.ResponseWriter, r *http.Request) {
-	userID := r.Context().Value(tools.CTXUserKey).(int)
+	userID := r.Context().Value(pkg.CTXUserKey).(int)
 
 	latStr := r.URL.Query().Get("lat")
 	lonStr := r.URL.Query().Get("lon")
