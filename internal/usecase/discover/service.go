@@ -32,23 +32,23 @@ func NewService(discover userDiscover, swipe swiper) *Service {
 func (s *Service) DiscoverPeople(ctx context.Context, userID int, params entity.SearchParams) ([]entity.User, error) {
 	swipes, err := s.swiper.GetUserSwipes(ctx, userID)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get user swipes: %w", err)
 	}
 
-	var excludedIds = []int{userID}
+	excludedIDs := []int{userID}
 
 	for _, swipe := range swipes {
-		excludedIds = append(excludedIds, swipe.TargetID)
+		excludedIDs = append(excludedIDs, swipe.TargetID)
 	}
 
-	params.ExcludeUserIDs = excludedIds
+	params.ExcludeUserIDs = excludedIDs
 
 	users, err := s.userDiscover.SearchOthers(ctx, params)
 	if err != nil {
 		return nil, fmt.Errorf("failed to search for others %w", err)
 	}
 
-	var userPoint = geodist.Point{Lat: params.Lat, Long: params.Lon}
+	userPoint := geodist.Point{Lat: params.Lat, Long: params.Lon}
 
 	for i, user := range users {
 		km := geodist.HaversineDistance(userPoint, geodist.Point{

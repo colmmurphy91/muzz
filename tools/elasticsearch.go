@@ -3,10 +3,10 @@ package tools
 import (
 	"context"
 	"fmt"
-	esv7api "github.com/elastic/go-elasticsearch/v7/esapi"
 	"strings"
 
 	esv7 "github.com/elastic/go-elasticsearch/v7"
+	esv7api "github.com/elastic/go-elasticsearch/v7/esapi"
 
 	"github.com/colmmurphy91/muzz/tools/envvar"
 )

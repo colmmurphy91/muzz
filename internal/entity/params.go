@@ -27,6 +27,7 @@ func (p SearchParams) Validate() error {
 	)
 }
 
+// nolint:forcetypeassert
 func nonNegativeInt(value interface{}) error {
 	if value.(null.Int).Valid && value.(null.Int).Int64 < 0 {
 		return validation.NewError("validation_non_negative", "must be non-negative")
@@ -35,6 +36,7 @@ func nonNegativeInt(value interface{}) error {
 	return nil
 }
 
+// nolint:forcetypeassert
 func validGender(value interface{}) error {
 	gender := value.(null.String)
 	if gender.Valid && gender.String != "" && gender.String != "male" && gender.String != "female" {

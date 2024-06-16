@@ -72,6 +72,7 @@ func (u *User) Index(ctx context.Context, user entity.User) error {
 	return nil
 }
 
+// nolint:cyclop,forcetypeassert
 func (u *User) SearchOthers(ctx context.Context, params entity.SearchParams) ([]entity.User, error) {
 	boolQuery := map[string]interface{}{
 		"must_not": []map[string]interface{}{},
@@ -91,9 +92,11 @@ func (u *User) SearchOthers(ctx context.Context, params entity.SearchParams) ([]
 		if params.MinAge.Valid {
 			ageRange["gte"] = params.MinAge.Int64
 		}
+
 		if params.MaxAge.Valid {
 			ageRange["lte"] = params.MaxAge.Int64
 		}
+
 		boolQuery["filter"] = append(boolQuery["filter"].([]map[string]interface{}), map[string]interface{}{
 			"range": map[string]interface{}{
 				"age": ageRange,

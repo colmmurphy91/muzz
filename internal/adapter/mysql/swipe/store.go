@@ -72,5 +72,6 @@ func (s *Store) GetUserSwipes(ctx context.Context, userID int) ([]entity.Swipe, 
 	if err != nil {
 		return nil, fmt.Errorf("failed to find target swipes: %w", err)
 	}
+
 	return swipes, nil
 }
