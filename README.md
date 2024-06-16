@@ -27,7 +27,7 @@
    
 - Create a user
    ```sh
-   curl -X POST http://localhost:8080/users -H "Content-Type: application/json" -d '{}'
+   curl --location --request POST 'http://localhost:8080/user/create'
    ```
 - Login
 ```sh
