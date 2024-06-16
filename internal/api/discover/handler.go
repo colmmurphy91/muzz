@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/colmmurphy91/muzz/tools"
+
 	chi "github.com/go-chi/chi/v5"
 	null "github.com/guregu/null/v5"
 	"go.uber.org/zap"
@@ -26,8 +28,9 @@ func (h *Handler) Register(r chi.Router) {
 	r.Get("/discover", h.discover)
 }
 
+// nolint:cyclop,forcetypeassert
 func (h *Handler) discover(w http.ResponseWriter, r *http.Request) {
-	userID := r.Context().Value("user").(int)
+	userID := r.Context().Value(tools.CTXUserKey).(int)
 
 	latStr := r.URL.Query().Get("lat")
 	lonStr := r.URL.Query().Get("lon")

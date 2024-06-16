@@ -22,6 +22,10 @@ type CustomClaims struct {
 	jwt.RegisteredClaims
 }
 
+type contextKey string
+
+const CTXUserKey contextKey = "user"
+
 // AuthMiddleware verifies the JWT token
 // AuthMiddleware verifies the JWT token
 func AuthMiddleware(next http.Handler) http.Handler {
@@ -49,7 +53,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		}
 
 		// Store the user ID from the token into the context
-		ctx := context.WithValue(r.Context(), "user", claims.UserID)
+		ctx := context.WithValue(r.Context(), CTXUserKey, claims.UserID)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

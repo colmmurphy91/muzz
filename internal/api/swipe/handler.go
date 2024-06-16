@@ -10,6 +10,7 @@ import (
 	"github.com/colmmurphy91/muzz/internal/api/response"
 	"github.com/colmmurphy91/muzz/internal/entity"
 	swipeService "github.com/colmmurphy91/muzz/internal/usecase/swipe"
+	"github.com/colmmurphy91/muzz/tools"
 )
 
 type Handler struct {
@@ -38,7 +39,12 @@ func (h *Handler) swipe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := r.Context().Value("user").(int)
+	userID, ok := r.Context().Value(tools.CTXUserKey).(int)
+	if !ok {
+		response.RenderErrorResponse(w, "forbidden", entity.ErrForbidden)
+		return
+	}
+
 	if userID != swipe.UserID {
 		response.RenderErrorResponse(w, "forbidden", entity.ErrForbidden)
 		return

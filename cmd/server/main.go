@@ -72,7 +72,7 @@ func LoggingMiddleware(log *zap.SugaredLogger) func(h http.Handler) http.Handler
 	}
 }
 
-func run(env, address string) (<-chan error, error) {
+func run(env, _ string) (<-chan error, error) {
 	logger, err := tools.New("event-thor-service")
 	if err != nil {
 		return nil, fmt.Errorf("zap.NewProduction %w", err)
