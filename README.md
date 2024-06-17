@@ -41,7 +41,6 @@ curl --location 'http://localhost:8080/login' \
 - discover
 ```sh
 curl --location 'http://localhost:8080/discover?lat=10.0&lon=10.0&min_age=1&gender=male' \
---header 'x-pf-app: my_crm' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InF1ZWVuLWV0aGVseW4tYmVhdHR5QG11enouY29tIiwiZXhwIjoxNzE4ODM3ODMwLCJ1c2VyX2lkIjo2Mn0.tETHFLadyDuaCEwMOQ-8SOoIWk27IUYXZG5dZHKpfX8'
 ```
 - swipe
